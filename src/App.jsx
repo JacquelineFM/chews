@@ -1,13 +1,16 @@
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Box, AppBar } from "@mui/material";
+import Header from "./components/Header";
+import Form from "./components/Form";
 
 const App = () => {
   return (
-    <Container>
-      <header>
-        <Typography variant="h3" component="h1" align="center" marginY={5}>
-          Chews
-        </Typography>
-      </header>
+    <Container maxWidth>
+      <Box sx={{ py: 1, borderBottom: "2px dotted #C4CDD5" }}>
+        <Header />
+      </Box>
+      <AppBar position="static" color="primary" sx={{ my: 0.5 }}>
+        <Form />
+      </AppBar>
     </Container>
   );
 };
