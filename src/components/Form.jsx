@@ -1,29 +1,31 @@
-import { useState } from "react";
+// @mui
 import { FormControl, Tabs, Tab } from "@mui/material";
+// @hooks
+import useNews from "../hooks/useNews";
+
+// ----------------------------------------------------------------------
 
 const CATEGORIES = [
   { value: "general", label: "# General" },
-  { value: "business", label: "# Business" },
-  { value: "entertainment", label: "# Entertainment" },
-  { value: "health", label: "# Health" },
-  { value: "science", label: "# Science" },
-  { value: "sports", label: "# Sports" },
-  { value: "technology", label: "# Technology" },
+  { value: "business", label: "# Negocios" },
+  { value: "entertainment", label: "# Entretenimiento" },
+  { value: "health", label: "# Salud" },
+  { value: "science", label: "# Ciencia" },
+  { value: "sports", label: "# Deportes" },
+  { value: "technology", label: "# Tecnología" },
 ];
 
-const Form = () => {
-  const [value, setValue] = useState(0);
+// ----------------------------------------------------------------------
 
-  const handleChange = (e, newValue) => {
-    setValue(newValue);
-  };
+const Form = () => {
+  const { category, handleChangeCategory } = useNews();
 
   return (
     <form>
       <FormControl fullWidth>
         <Tabs
-          value={value}
-          onChange={handleChange}
+          value={category}
+          onChange={handleChangeCategory}
           textColor="inherit"
           indicatorColor="secondary"
           variant="scrollable"
@@ -33,6 +35,7 @@ const Form = () => {
             <Tab
               key={category.value}
               label={category.label}
+              value={category.value}
               sx={{
                 flexGrow: 1,
               }}
