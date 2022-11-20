@@ -1,12 +1,18 @@
 // @mui
-import { Box, Grid, Stack, Typography, IconButton } from "@mui/material";
+import { Grid, Stack, Box, Typography, IconButton } from "@mui/material";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import EmailIcon from "@mui/icons-material/Email";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
 // ----------------------------------------------------------------------
 
-const Header = () => {
+const Header = ({ weather }) => {
+  const { main, weather: photoWeather } = weather;
+  const { temp } = main;
+  const { icon } = photoWeather[0];
+
+  console.log(weather);
+
   return (
     <header>
       <Grid
@@ -23,12 +29,12 @@ const Header = () => {
             alignItems="center"
           >
             <img
-              src={`https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/10d.svg`}
+              src={`https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${icon}.svg`}
               width={45}
               height={45}
             />
             <Box direction="column" align="start">
-              <Typography variant="subtitle2">30°</Typography>
+              <Typography variant="subtitle2">{parseInt(temp)}°</Typography>
               <Typography variant="body2">Ciudad de México</Typography>
             </Box>
           </Stack>
