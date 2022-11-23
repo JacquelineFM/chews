@@ -12,13 +12,13 @@ import {
 } from "@mui/material";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 // utils
-import { fDateTimeSuffix } from "../utils/formatTime";
-import { getNumRandom } from "../utils/getNumRandom";
+import { fDateTimeSuffix } from "../../utils/formatTime";
+import { getNumRandom } from "../../utils/getNumRandom";
 // components
-import Image from "./Image";
-import SvgIconStyle from "./SvgIconStyle";
-import TextIconLabel from "./TextIconLabel";
-import TextMaxLine from "./TextMaxLine";
+import Image from "../../components/Image";
+import SvgIconStyle from "../../components/SvgIconStyle";
+import TextIconLabel from "../../components/TextIconLabel";
+import TextMaxLine from "../../components/TextMaxLine";
 
 // ----------------------------------------------------------------------
 

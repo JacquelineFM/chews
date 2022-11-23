@@ -8,10 +8,12 @@ const NewsContext = createContext();
 // ----------------------------------------------------------------------
 
 const NewsProvider = ({ children }) => {
-  const [weather, setWeather] = useState({});
-  const [category, setCategory] = useState("general");
+  const [page, setPage] = useState(2);
   const [news, setNews] = useState([]);
+  const [weather, setWeather] = useState({});
+  const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [category, setCategory] = useState("general");
 
   useEffect(() => {
     const checkWeather = async () => {
@@ -37,22 +39,48 @@ const NewsProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    const checkNews = async () => {
-      const apiKey = import.meta.env.VITE_NEWS_API_KEY;
-      const url = `https://newsapi.org/v2/top-headlines?country=mx&category=${category}&apiKey=${apiKey}`;
-      const { data } = await axios(url);
+    setPage(2);
+    setHasMore(true);
 
-      setNews(data.articles);
+    const checkNews = async () => {
+      const articles = await fetchNews(1);
+
+      setNews(articles);
     };
 
     checkNews();
   }, [category]);
 
+  const fetchNews = async (page) => {
+    const apiKey = import.meta.env.VITE_NEWS_API_KEY;
+    const url = `https://newsapi.org/v2/top-headlines?country=mx&page=${page}&category=${category}&apiKey=${apiKey}`;
+    const { data } = await axios(url);
+
+    return data.articles;
+  };
+
+  const fetchMoreNews = async () => {
+    const articles = await fetchNews(page);
+    setNews([...news, ...articles]);
+
+    if (articles.length === 0 || articles.length < 20) setHasMore(false);
+
+    setPage(page + 1);
+  };
+
   const handleChangeCategory = (e, newValue) => setCategory(newValue);
 
   return (
     <NewsContext.Provider
-      value={{ category, handleChangeCategory, weather, news, loading }}
+      value={{
+        news,
+        weather,
+        hasMore,
+        loading,
+        category,
+        fetchMoreNews,
+        handleChangeCategory,
+      }}
     >
       {children}
     </NewsContext.Provider>

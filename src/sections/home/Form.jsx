@@ -1,7 +1,7 @@
 // @mui
 import { FormControl, Tabs, Tab } from "@mui/material";
-// @hooks
-import useNews from "../hooks/useNews";
+// hooks
+import useNews from "../../hooks/useNews";
 
 // ----------------------------------------------------------------------
 

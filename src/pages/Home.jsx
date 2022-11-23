@@ -4,9 +4,11 @@ import { Container, Box, AppBar } from "@mui/material";
 // hooks
 import useNews from "../hooks/useNews";
 // components
-import Header from "../components/Header";
-import Form from "../components/Form";
-import ListNews from "../components/ListNews";
+import Loader from "../components/Loader";
+// sections
+import Form from "../sections/home/Form";
+import Header from "../sections/home/Header";
+import ListNews from "../sections/home/ListNews";
 
 // ----------------------------------------------------------------------
 
@@ -15,22 +17,36 @@ const Home = () => {
   const { loading, weather } = useNews();
 
   return (
-    <Container maxWidth="xl">
-      {!loading && weather?.name && (
-        <>
-          <Box
-            sx={{
-              py: 1,
-              borderBottom: `2px dotted ${theme.palette.grey[400]}`,
-            }}
-          >
-            <Header weather={weather} />
-          </Box>
-          <AppBar position="static" color="primary" sx={{ my: 0.5 }}>
-            <Form />
-          </AppBar>
-          <ListNews />
-        </>
+    <Container
+      maxWidth="xl"
+      sx={{
+        ...(loading && {
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }),
+      }}
+    >
+      {loading ? (
+        <Loader />
+      ) : (
+        weather?.name && (
+          <>
+            <Box
+              sx={{
+                py: 1,
+                borderBottom: `2px dotted ${theme.palette.grey[400]}`,
+              }}
+            >
+              <Header weather={weather} />
+            </Box>
+            <AppBar position="static" color="primary" sx={{ my: 0.5 }}>
+              <Form />
+            </AppBar>
+            <ListNews />
+          </>
+        )
       )}
     </Container>
   );
