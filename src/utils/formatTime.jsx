@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import { es } from "date-fns/locale";
 
 // ----------------------------------------------------------------------
 
@@ -7,4 +8,4 @@ import { format } from "date-fns";
  * January 2019, 12:00 am"
  */
 export const fDateTimeSuffix = (date) =>
-  format(new Date(date), "DD MMMM YYYY, HH:MM a");
+  format(new Date(date), "dd MMMM yyyy, HH:mm a", { locale: es });
